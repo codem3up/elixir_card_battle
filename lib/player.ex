@@ -7,11 +7,12 @@ defmodule Player do
   end
 
   def deal_players(players_list, deck) do 
-    for player <- players_list do
+    players_list = for player <- players_list do
       players_hand = player.hand
-      {hand, deck} = Cards.deal(deck, 5)
+      { hand, deck } = Cards.deal(deck, 5)
       %{player | hand: hand}
     end
+    { players_list, deck }
   end
 
 end

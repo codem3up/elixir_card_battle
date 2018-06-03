@@ -17,10 +17,11 @@ defmodule CardGame do
     #IO.inspect game
     IO.puts "this is the game"
     players = game.players
-    player = Player.deal_players(players, deck)
-    %{game | players: player}
-    IO.inspect player
-    IO.inspect game
+    { players, deck } = Player.deal_players(players, deck)
+    %{game | players: players}
+    IO.inspect players
+    IO.inspect deck
+    #    IO.inspect game
     #loop(game)
   end
 

@@ -32,8 +32,9 @@ defmodule Cards do
   end
 
   def deal(deck, number_of_cards) do
-    sdeck = Cards.shuffle(deck) 
-    {hand, rest} = Enum.split(sdeck, number_of_cards)
+    { hand, deck } = deck
+    |> Cards.shuffle
+    |> Enum.split(number_of_cards)
   end
 
   def deal(deck) do
