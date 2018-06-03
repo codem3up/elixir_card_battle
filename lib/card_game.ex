@@ -17,12 +17,10 @@ defmodule CardGame do
     #IO.inspect game
     IO.puts "this is the game"
     players = game.players
-    { players, deck } = Player.deal_players(players, deck)
-    %{game | players: players}
-    IO.inspect players
-    IO.inspect deck
-    #    IO.inspect game
-    #loop(game)
+    list  = Player.deal_players(players, deck)
+    list = Enum.reverse(list)
+    [ deck | players ] = list
+    loop(%{game | players: players, deck: deck, pid: self()} )
   end
 
   def initialize_players(game = %Game{}) do
@@ -36,11 +34,12 @@ defmodule CardGame do
   end
 
   def create_players(player_list, playercount) do
-    player = Player.create(%Player{})
+    player = Player.create(%Player{name: "Player ##{playercount}"})
     [player | create_players(player_list, playercount-1)]
   end
 
   defp loop(game = %Game{}) do
+    IO.inspect game
     receive do
       {:get, key, caller} ->
         #send caller, Map.get(map, key)
