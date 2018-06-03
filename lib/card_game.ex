@@ -17,14 +17,10 @@ defmodule CardGame do
     #IO.inspect game
     IO.puts "this is the game"
     players = game.players
-    for player <- players do
-      players_hand = player.hand
-      {hand, deck} = Cards.deal(deck, 5)
-      players_hand = hand
-      IO.inspect players_hand
-
-    end
-
+    player = Player.deal_players(players, deck)
+    %{game | players: player}
+    IO.inspect player
+    IO.inspect game
     #loop(game)
   end
 

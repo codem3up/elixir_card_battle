@@ -6,8 +6,12 @@ defmodule Player do
     Map.put(%Player{}, :pid, pid)
   end
 
-  def deal_player(game = %Game{}, deck) do 
-    {hand, deck} = Cards.deal(deck, 5)
-    hand
+  def deal_players(players_list, deck) do 
+    for player <- players_list do
+      players_hand = player.hand
+      {hand, deck} = Cards.deal(deck, 5)
+      %{player | hand: hand}
+    end
   end
+
 end
