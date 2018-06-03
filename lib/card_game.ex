@@ -16,10 +16,7 @@ defmodule CardGame do
     game = initialize_players(%{game | deck: deck})
     #IO.inspect game
     IO.puts "this is the game"
-    for player <- game.players do
-      {hand, deck} = Cards.deal(deck, 5)
-      %{player | hand: hand}
-    end
+
 
     #loop(game)
   end
@@ -40,6 +37,10 @@ defmodule CardGame do
   def create_players(player_list, playercount) do
     player = Player.create(%Player{})
     [ player | create_players(player_list, playercount-1) ]
+    for player <- player_list do
+      #{hand, deck} = Cards.deal(deck, 5)
+      #%{player | hand: [hand]}
+    end
   end
 
   defp loop(game = %Game{}) do
