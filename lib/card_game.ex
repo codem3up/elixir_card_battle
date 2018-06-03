@@ -16,7 +16,14 @@ defmodule CardGame do
     game = initialize_players(%{game | deck: deck})
     #IO.inspect game
     IO.puts "this is the game"
+    players = game.players
+    for player <- players do
+      players_hand = player.hand
+      {hand, deck} = Cards.deal(deck, 5)
+      players_hand = hand
+      IO.inspect players_hand
 
+    end
 
     #loop(game)
   end
@@ -24,23 +31,16 @@ defmodule CardGame do
   def initialize_players(game = %Game{}) do
     IO.puts "Playercount: #{game.player_count}"
     players = create_players([], game.player_count)
-    IO.inspect players
     %{game | players: players}
-    #for player <- game.player_count do
-    #IO.puts player
-      #end
   end
+
   def create_players(player_list, value) when value <= 0 do  
     [] 
   end
 
   def create_players(player_list, playercount) do
     player = Player.create(%Player{})
-    [ player | create_players(player_list, playercount-1) ]
-    for player <- player_list do
-      #{hand, deck} = Cards.deal(deck, 5)
-      #%{player | hand: [hand]}
-    end
+    [player | create_players(player_list, playercount-1)]
   end
 
   defp loop(game = %Game{}) do
